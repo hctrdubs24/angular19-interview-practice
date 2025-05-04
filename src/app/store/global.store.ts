@@ -11,13 +11,7 @@ import {
   withMethods,
   withState,
 } from '@ngrx/signals';
-import {
-  addEntity,
-  removeEntity,
-  setEntity,
-  updateEntity,
-  withEntities,
-} from '@ngrx/signals/entities';
+import { withEntities } from '@ngrx/signals/entities';
 import { lastValueFrom } from 'rxjs';
 
 type StoreState = {
@@ -65,7 +59,7 @@ export const GlobalStore = signalStore(
 
         patchState(store, ({ characters }) => ({
           characters: characters.map((ch) =>
-            ch.id === character.id ? { ...ch, ...character } : ch
+            ch.id === character.id ? { ...ch, ...character } : ch,
           ),
         }));
       } catch (error) {}
@@ -74,9 +68,9 @@ export const GlobalStore = signalStore(
   withHooks({
     async onInit(store, characterService = inject(CharacterService)) {
       const characters = await lastValueFrom(
-        characterService.getAllCharacters()
+        characterService.getAllCharacters(),
       );
       patchState(store, { characters });
     },
-  })
+  }),
 );
