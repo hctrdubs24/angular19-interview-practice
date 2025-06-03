@@ -58,8 +58,8 @@ export const GlobalStore = signalStore(
         await lastValueFrom(characterService.updateCharacter(character));
 
         patchState(store, ({ characters }) => ({
-          characters: characters.map((ch) =>
-            ch.id === character.id ? { ...ch, ...character } : ch,
+          characters: characters.map((char) =>
+            char.id === character.id ? { ...char, ...character } : char,
           ),
         }));
       } catch (error) {}
